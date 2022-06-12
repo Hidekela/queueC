@@ -24,8 +24,8 @@
  *      THE SOFTWARE.
  * 
  * 
- * @version 0.1
- * @date 2022-06-10
+ * @version 1.0
+ * @date 2022-06-12
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -153,8 +153,7 @@ void queue_pop(Queue *queue)
  *  (allocation), add of the data items (fill properties) and call queue_pushData() in the end.
  * 
  *  For example: 
- *      #define Q_DATA_LENGTH 20
- *      bool queue_push(Queue *queue, int age, const char name) 
+ *      bool queue_push(Queue *queue, int age, const char *name) 
  *  where data is an instance of a structure containing 'age' and 'name': 
  *      struct{int age, char name[20]}
  * 
@@ -163,7 +162,7 @@ void queue_pop(Queue *queue)
  * @return true if the operation succeed
  * @return false 
  */
-bool queue_pushData(Queue *queue, Q_DATA_TYPE *data)
+bool queue_pushData(Queue *queue, void *data)
 {
     if(!queue_exist(queue)) // Should be warning
     {
@@ -201,23 +200,25 @@ bool queue_pushData(Queue *queue, Q_DATA_TYPE *data)
  *   and freeing of the data, so never use this function for the concerned queue.
  * 
  * @param queue the queue
- * @return Q_DATA_TYPE* pointer of the new data
+ * @param sizeofDataType the size of the data type
+ * @param numberofData the number of data (length of the array if it is an array, 1 otherwise)
+ * @return void* pointer of the new data
  */
-Q_DATA_TYPE* queue_createData(Queue *queue)
+void* queue_createData(Queue *queue, size_t sizeofDataType, unsigned int numberofData)
 {
     if(!queue->dataManagement)
         queue->dataManagement = true;
 
-    return malloc(sizeof(Q_DATA_TYPE)*Q_DATA_LENGTH);
+    return malloc(sizeof(sizeofDataType)*numberofData);
 }
 
 /**
  * @brief Return the first element of the queue
  * 
  * @param queue the queue
- * @return Q_DATA_TYPE* the pointer to the first data
+ * @return void* the pointer to the first data
  */
-Q_DATA_TYPE* queue_getFirst(Queue *queue)
+void* queue_getFirst(Queue *queue)
 {
     return queue->current->data;
 }

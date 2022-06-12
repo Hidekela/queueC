@@ -3,15 +3,6 @@
  * @author Hidekela (rhidekela@gmail.com)
  * @brief Queue manager library in C
  * 
- *                                       TO START
- *      
- *      Define Q_DATA_TYPE and Q_DATA_LENGTH respectively as a variable type that you want 
- *      to store in the queue and as the legth of the data if it is an array (1 if not).
- *      The type of the data stored in the queue cannot be changed durring the whole program.
- *      If you want to have another queue with a different type of data, implement the queue
- *      yourself or migrate to another language such as C++, python,... which manage queues.
- * 
- * 
  *                                      MIT LICENSE
  *
  *      Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -33,8 +24,8 @@
  *      THE SOFTWARE.
  * 
  * 
- * @version 0.1
- * @date 2022-06-10
+ * @version 1.0
+ * @date 2022-06-12
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -45,30 +36,10 @@
 
 #include <stdbool.h>
 
-/////////////////////////////////////////////   // |
-/**                                             // |
- *   You can start the change from here         // |
- *                                              // |
- *   __________________________________  */     // |
-                                                // |        define if it is not yet Q_DATA_TYPE 
-    #ifndef Q_DATA_TYPE                         // |        as the data type you want to store 
-    #define Q_DATA_TYPE int                     // |        in the queue :
-    #endif //Q_DATA_TYPE                        // |        
-                                                // |        int, char*, double, float, char**
-    #ifndef Q_DATA_LENGHT                       // |        struct Node, struct Bidule*, etc...
-    #define Q_DATA_LENGTH 1                     // |
-    #endif //Q_DATA_LENGTH                      // |
-                                                // |        and Q_DATA_LENGTH as the length of
-/**  __________________________________         // |        the data if it's an array, 1 if not
- *                                              // |        
- *       Stop the change after here             // |        
- *                                       */     // |        
-/////////////////////////////////////////////   // |        
-
 typedef struct _Cell Cell;
 struct _Cell
 {
-    Q_DATA_TYPE *data;
+    void *data;
     Cell *next;
 };
 
@@ -82,13 +53,88 @@ struct _Queue
     /* Add another properties: length, etc... */
 };
 
+/**
+ * @brief Check the existence of a queue
+ * 
+ * @param queue the queue
+ * @return true if exist
+ * @return false 
+ */
 bool queue_exist(Queue *queue);
+
+/**
+ * @brief Init the queue
+ * 
+ * @param queue the queue
+ * @return Queue* a pointer to the queue (needed if you want to allocate the queue dynamically,
+ *  and if it is, then you must quit the queue by queue_quit() in order to free it in the end)
+ */
 Queue* queue_init(Queue *queue);
+
+/**
+ * @brief Check if the queue doesn't contain anything
+ * 
+ * @param queue the queue
+ * @return true if the queue is empty
+ * @return false 
+ */
 bool queue_isEmpty(Queue *queue);
+
+/**
+ * @brief Destroy the queue
+ * 
+ * @param queue the queue
+ * @return Queue* NULL (needed if you allocated dynamically the queue and want
+ *  to secure the pointer to the queue)
+ */
 Queue* queue_quit(Queue *queue);
+
+/**
+ * @brief Delete the first element of the queue. Warning! If you have used queue_createData() and 
+ *  the type of your data structure contain dynamically allocated variables, free those variables
+ *  before using this function
+ * 
+ * @param queue the queue
+ */
 void queue_pop(Queue *queue);
-bool queue_pushData(Queue *queue, Q_DATA_TYPE *data);
-Q_DATA_TYPE* queue_createData(Queue *queue);
-Q_DATA_TYPE* queue_getFirst(Queue *queue);
+
+/**
+ * @brief Add an element in the last of the queue. The data of element must be already
+ *  dynamically allocated (by queue_createData() or malloc()) and filled by yourself.
+ *  Note that if you don't manage yourself the data allocation and freeing, you must use
+ *  queue_createData() in order to tell the library to manage it (allocation and freeing).
+ *  You can create a new function of push costumized in your need for creation of data
+ *  (allocation), add of the data items (fill properties) and call queue_pushData() in the end.
+ * 
+ *  For example: 
+ *      bool queue_push(Queue *queue, int age, const char *name) 
+ *  where data is an instance of a structure containing 'age' and 'name': 
+ *      struct{int age, char name[20]}
+ * 
+ * @param queue the queue
+ * @param data the data of the new element
+ * @return true if the operation succeed
+ * @return false 
+ */
+bool queue_pushData(Queue *queue, void *data);
+
+/**
+ * @brief Allocate (dynamically) memory spaces for a new data. Warning! If you manage yourself the allocation
+ *   and freeing of the data, so never use this function for the concerned queue.
+ * 
+ * @param queue the queue
+ * @param sizeofDataType the size of the data type
+ * @param numberofData the number of data (length of the array if it is an array, 1 otherwise)
+ * @return void* pointer of the new data
+ */
+void* queue_createData(Queue *queue, size_t sizeofDataType, unsigned int numberofData);
+
+/**
+ * @brief Return the first element of the queue
+ * 
+ * @param queue the queue
+ * @return void* the pointer to the first data
+ */
+void* queue_getFirst(Queue *queue);
 
 #endif // QUEUE_H_INCLUDED
