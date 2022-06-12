@@ -1,8 +1,10 @@
 # QueueC
 
-Queue manager library in C
+_Queue manager library in C_
 
-# Getting started
+![queue.png](queue.png)
+
+## Getting started
 
 * Include the header file `"queueC.h"` in your source code
 
@@ -20,18 +22,18 @@ Queue manager library in C
     gcc -Wall -O2 main.c -s libqueueC.a
 ```
 
-# Use and Examples
+## Use and Examples
 
 You will find in the header file how to use each function. 
 Go to [example directory](example) to see usage examples
 
-# Compilation of the library
+## Compilation of the library
 
 If you to compile again the library, delete `libqueueC.a` and run the following command
 
     gcc -Wall -O2  -c queueC.c -o queueC.o
     ar -r -s libqueueC.a queueC.o
 
-# License
+## License
 
 Project under [MIT LICENSE](LICENSE-MIT)
