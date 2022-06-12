@@ -4,7 +4,7 @@ Queue manager library in C
 
 # Get started
 
-* Define Q_DATA_TYPE into a variable type that you want to store in the queue:
+* Define Q_DATA_TYPE as a variable type that you want to store in the queue:
 
     - before including ``"queueC.h"``
 
@@ -16,7 +16,7 @@ Queue manager library in C
         #define Q_DATA_TYPE int // Or something else
         #endif //Q_DATA_TYPE
 
-* Define Q_DATA_LENGTH into the legth of the data if it is an array (1 if not):
+* Define Q_DATA_LENGTH as the legth of the data if it is an array (1 if not):
 
     - before including ``"queueC.h"``
 
@@ -53,7 +53,7 @@ If you to compile again the library, delete ``libqueueC.a`` and run the followin
 
 # Limitation
 
-The type of the data stored in the queue cannot be changed durring the whole program. If you want to have another queue with a different type of data, you should implement the queue yourself or migrate to another language such as C++, python,... which manage queues.
+The type of data stored in the queue cannot be changed throughout the program. If you want to have another queue with a different data type, you have to implement the queue yourself or migrate to another language such as C++, python,... which manages queues.
 
 # License
 

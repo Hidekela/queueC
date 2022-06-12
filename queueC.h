@@ -5,8 +5,8 @@
  * 
  *                                       TO START
  *      
- *      Define Q_DATA_TYPE and Q_DATA_LENGTH respectively into a variable type that you want 
- *      to store in the queue and into the legth of the data if it is an array (1 if not).
+ *      Define Q_DATA_TYPE and Q_DATA_LENGTH respectively as a variable type that you want 
+ *      to store in the queue and as the legth of the data if it is an array (1 if not).
  *      The type of the data stored in the queue cannot be changed durring the whole program.
  *      If you want to have another queue with a different type of data, implement the queue
  *      yourself or migrate to another language such as C++, python,... which manage queues.
@@ -51,14 +51,14 @@
  *                                              // |
  *   __________________________________  */     // |
                                                 // |        define if it is not yet Q_DATA_TYPE 
-    #ifndef Q_DATA_TYPE                         // |        into the data type you want to store 
+    #ifndef Q_DATA_TYPE                         // |        as the data type you want to store 
     #define Q_DATA_TYPE int                     // |        in the queue :
     #endif //Q_DATA_TYPE                        // |        
                                                 // |        int, char*, double, float, char**
     #ifndef Q_DATA_LENGHT                       // |        struct Node, struct Bidule*, etc...
     #define Q_DATA_LENGTH 1                     // |
     #endif //Q_DATA_LENGTH                      // |
-                                                // |        and Q_DATA_LENGTH into the length of
+                                                // |        and Q_DATA_LENGTH as the length of
 /**  __________________________________         // |        the data if it's an array, 1 if not
  *                                              // |        
  *       Stop the change after here             // |        
