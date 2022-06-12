@@ -1,9 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-
-#define Q_DATA_TYPE char // I will store names
-#define Q_DATA_LENGHT 20 // So it's char[20]
-
 #include "../queueC.h"
 
 // Prototypes of some functions
@@ -25,12 +21,12 @@ int main()
     puts("Let's show names:\n");
     while(!queue_isEmpty(&queueNames))
     {
-        printf("%s\n",queue_getFirst(&queueNames));
+        printf("%s\n",(char*) queue_getFirst(&queueNames));
         queue_pop(&queueNames);
     }
 
     queue_push(&queueNames,"Saitama");
-    printf("%s\n",queue_getFirst(&queueNames));
+    printf("%s\n",(char*) queue_getFirst(&queueNames));
 
     queue_push(&queueNames,"Garou");
     queue_push(&queueNames,"King");
@@ -44,7 +40,7 @@ int main()
 
 bool queue_push(Queue *queue, const char *name)
 {
-    Q_DATA_TYPE *newName = queue_createData(queue);
+    char *newName = (char*) queue_createData(queue,sizeof(char),20); // Name should at most 19 characters here
     strcpy(newName,name);
     return queue_pushData(queue,newName);
 }
