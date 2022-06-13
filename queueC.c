@@ -129,17 +129,17 @@ void queue_pop(Queue *queue)
     if(queue_isEmpty(queue))
         return;
 
-    Cell *toDelete = queue->current;
+    Queue_Cell *toDelete = queue->current;
 
     /* Free the data if it should be */
     if(queue->dataManagement)
         free(toDelete->data);
 
-    /* Free the cell */
+    /* Free the Queue_Cell */
     queue->current = queue->current->next;
     free(toDelete);
 
-    /* Secure the last cell */
+    /* Secure the last Queue_Cell */
     if(queue->current == NULL)
         queue->last = NULL;
 }
@@ -170,27 +170,27 @@ bool queue_pushData(Queue *queue, void *data)
         exit(EXIT_FAILURE);
     }
 
-    /* Create a new cell */
-    Cell *newCell = malloc(sizeof(Cell));
+    /* Create a new Queue_Cell */
+    Queue_Cell *newQueue_Cell = malloc(sizeof(Queue_Cell));
 
-    /* If the creation of cell fails */
-    if(newCell == NULL)
+    /* If the creation of Queue_Cell fails */
+    if(newQueue_Cell == NULL)
     {
         if(queue->dataManagement)
             free(data);
         return false;
     }
 
-    /* Fill the properties of the cell */
-    newCell->data = data;
-    newCell->next = NULL;
+    /* Fill the properties of the Queue_Cell */
+    newQueue_Cell->data = data;
+    newQueue_Cell->next = NULL;
 
     if(queue_isEmpty(queue))
-        queue->current = newCell;
+        queue->current = newQueue_Cell;
     else
-        queue->last->next = newCell;
+        queue->last->next = newQueue_Cell;
 
-    queue->last = newCell;
+    queue->last = newQueue_Cell;
 
     return true;
 }

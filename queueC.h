@@ -36,18 +36,18 @@
 
 #include <stdbool.h>
 
-typedef struct _Cell Cell;
-struct _Cell
+typedef struct _Queue_Cell Queue_Cell;
+struct _Queue_Cell
 {
     void *data;
-    Cell *next;
+    Queue_Cell *next;
 };
 
 typedef struct _Queue Queue;
 struct _Queue
 {
-    Cell *current;
-    Cell *last;
+    Queue_Cell *current;
+    Queue_Cell *last;
     bool isDynamicallyAllocated;
     bool dataManagement; // True if this lib should manage the allocation of the data
     /* Add another properties: length, etc... */
